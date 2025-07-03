@@ -87,7 +87,7 @@ Pastikan kode Anda sesuai dengan standar proyek dan menyertakan tes yang sesuai.
 Proyek ini dilisensikan di bawah Lisensi MIT. Lihat file LICENSE untuk detailnya.
 
 📬 Kontak
-Untuk pertanyaan atau dukungan, hubungi kami di email@example.com atau bergabung dengan server Discord kami.
+Untuk pertanyaan atau dukungan, hubungi kami di gagah.p.412@gmail.com atau bergabung dengan server Discord kami.
 
 Catatan:  
 
