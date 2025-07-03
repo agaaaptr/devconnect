@@ -1,58 +1,58 @@
 DevConnect 🚀
-DevConnect is a social media platform tailored for developers. It offers a space to share code, connect with peers, chat in real-time, showcase projects, manage versions, and earn achievements.
+DevConnect adalah platform media sosial yang dirancang khusus untuk pengembang. Platform ini menyediakan ruang untuk berbagi kode, terhubung dengan sesama pengembang, mengobrol secara real-time, memamerkan proyek, mengelola versi, dan mendapatkan pencapaian.
 
-✨ Key Features
+✨ Fitur Utama
 
-Code Sharing 📝: Easily share code snippets or full projects with the community.
-Developer Networking 🤝: Connect with other developers, follow their work, and collaborate.
-Real-Time Chat 💬: Discuss ideas and get instant feedback through the chat feature.
-Project Showcase 🎨: Display your projects and receive community feedback.
-Version Control 🔄: Manage and track project changes directly on the platform.
-Achievement System 🏆: Earn badges and rewards for your contributions and activities.
-
-
-🛠️ Technologies Used
-
-Frontend: Next.js – A React framework for server-side rendering and static site generation.
-Backend: Express.js – A minimal and flexible Node.js web application framework.
-Database: Supabase – An open-source Firebase alternative with real-time capabilities.
+Berbagi Kode 📝: Bagikan cuplikan kode atau proyek lengkap dengan komunitas secara mudah.
+Jaringan Pengembang 🤝: Terhubung dengan pengembang lain, ikuti karya mereka, dan berkolaborasi.
+Obrolan Real-Time 💬: Diskusikan ide dan dapatkan umpan balik instan melalui fitur obrolan.
+Pameran Proyek 🎨: Tampilkan proyek Anda dan terima masukan dari komunitas.
+Kontrol Versi 🔄: Kelola dan lacak perubahan proyek langsung di platform.
+Sistem Pencapaian 🏆: Dapatkan lencana dan hadiah atas kontribusi dan aktivitas Anda.
 
 
-📦 Installation
-Follow these steps to run DevConnect locally:
+🛠️ Teknologi yang Digunakan
 
-Clone the repository:
+Frontend: Next.js – Framework React untuk rendering sisi server dan pembuatan situs statis.
+Backend: Express.js – Framework aplikasi web Node.js yang minimal dan fleksibel.
+Database: Supabase – Alternatif Firebase open-source dengan kemampuan real-time.
+
+
+📦 Instalasi
+Ikuti langkah-langkah berikut untuk menjalankan DevConnect secara lokal:
+
+Kloning repository:
 git clone https://github.com/your-username/devconnect.git
 cd devconnect
 
 
-Install dependencies:
+Instal dependensi:
 
-For the frontend:cd frontend
+Untuk frontend:cd frontend
 npm install
 
 
-For the backend:cd ../backend
+Untuk backend:cd ../backend
 npm install
 
 
 
 
-Set up environment variables:
+Atur variabel lingkungan:
 
-Create a .env file in the backend directory with:SUPABASE_URL=your_supabase_url
+Buat file .env di direktori backend dengan isi:SUPABASE_URL=your_supabase_url
 SUPABASE_KEY=your_supabase_key
 
 
 
 
-Run the application:
+Jalankan aplikasi:
 
-Start the backend server:cd backend
+Jalankan server backend:cd backend
 npm start
 
 
-Start the frontend development server:cd ../frontend
+Jalankan server pengembangan frontend:cd ../frontend
 npm run dev
 
 
@@ -60,37 +60,35 @@ npm run dev
 
 
 
-🚀 Usage
+🚀 Penggunaan
 
-Sign Up / Log In 🔑: Create an account or log in to access the platform.
-Profile 👤: Customize your profile, add a bio, and link your social media.
-Share Code 📤: Use the built-in code editor to share snippets or link to repositories.
-Networking 🌐: Follow developers, join groups, and participate in discussions.
-Chat 💬: Communicate in real-time using the chat feature.
-Projects 🖼️: Upload and showcase your projects, and explore others' work.
-Version Control 📜: Manage project versions directly on the platform.
-Achievements ⭐: Earn badges for completing tasks and contributing.
+Daftar / Masuk 🔑: Buat akun atau masuk untuk mengakses platform.
+Profil 👤: Sesuaikan profil Anda, tambahkan bio, dan tautkan media sosial.
+Bagikan Kode 📤: Gunakan editor kode bawaan untuk berbagi cuplikan atau tautkan ke repository.
+Jaringan 🌐: Ikuti pengembang, gabung ke grup, dan ikut dalam diskusi.
+Obrolan 💬: Berkomunikasi secara real-time menggunakan fitur obrolan.
+Proyek 🖼️: Unggah dan pamerkan proyek Anda, serta jelajahi karya orang lain.
+Kontrol Versi 📜: Kelola versi proyek langsung di platform.
+Pencapaian ⭐: Dapatkan lencana untuk menyelesaikan tugas dan berkontribusi.
 
 
-🤝 Contributing
-We welcome contributions! To get started:
+🤝 Kontribusi
+Kami menyambut kontribusi! Untuk memulai:
 
-Fork this repository.
-Create a new branch for your feature or bug fix.
-Make your changes and commit with a descriptive message.
-Push your changes to your fork.
-Submit a pull request to the main repository.
+Fork repository ini.
+Buat branch baru untuk fitur atau perbaikan bug Anda.
+Lakukan perubahan dan commit dengan pesan yang deskriptif.
+Push perubahan Anda ke fork Anda.
+Ajukan pull request ke repository utama.
 
-Ensure your code adheres to the project's standards and includes appropriate tests.
+Pastikan kode Anda sesuai dengan standar proyek dan menyertakan tes yang sesuai.
 
-📜 License
-This project is licensed under the MIT License. See the LICENSE file for details.
+📜 Lisensi
+Proyek ini dilisensikan di bawah Lisensi MIT. Lihat file LICENSE untuk detailnya.
 
-📬 Contact
-For questions or support, reach out at email@example.com or join our Discord server.
+📬 Kontak
+Untuk pertanyaan atau dukungan, hubungi kami di email@example.com atau bergabung dengan server Discord kami.
 
-Note:  
+Catatan:  
 
-Replace your-username in the clone command with your actual GitHub username.  
-Update the email and Discord links with valid contact information.  
-Consider adding a "Screenshots" section with images or a logo for extra visual appeal.
+Ganti your-username di perintah kloning dengan nama pengguna GitHub Anda yang sebenarnya.
