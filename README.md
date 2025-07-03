@@ -1,4 +1,4 @@
-DevConnect 🚀
+# DevConnect 🚀
 DevConnect adalah platform media sosial yang dirancang khusus untuk pengembang. Platform ini menyediakan ruang untuk berbagi kode, terhubung dengan sesama pengembang, mengobrol secara real-time, memamerkan proyek, mengelola versi, dan mendapatkan pencapaian.
 
 ✨ Fitur Utama
