@@ -1,15 +1,18 @@
 {
   "version": 2,
-  "functions": {
-    "src/server.ts": {
-      "runtime": "@vercel/node@3.0.0",
-      "maxDuration": 30
+  "builds": [
+    {
+      "src": "src/server.ts",
+      "use": "@vercel/node@3.0.0",
+      "config": {
+        "maxDuration": 30
+      }
     }
-  },
+  ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "src/server.ts"
+      "dest": "/src/server.ts"
     }
   ],
   "env": {
