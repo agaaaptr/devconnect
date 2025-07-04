@@ -12,8 +12,7 @@
 4. [Installation & Setup](#installation--setup)
 5. [Usage](#usage)
 6. [Contributing](#contributing)
-7. [License](#license)
-8. [Contact & Support](#contact--support)
+7. [Contact & Support](#contact--support)
 
 ---
 
