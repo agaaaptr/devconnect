@@ -146,12 +146,6 @@ We welcome and value your contributions! To maintain high standards, please adhe
 
 ---
 
-## 📜 License
-
-This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for full terms.
-
----
-
 ## 📬 Contact & Support
 
 For inquiries, feature requests, or support:
