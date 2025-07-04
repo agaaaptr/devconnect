@@ -9,7 +9,6 @@
       }
     }
   ],
-  "installCommand": "npm install",
   "routes": [
     {
       "src": "/(.*)",
