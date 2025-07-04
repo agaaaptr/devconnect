@@ -157,6 +157,6 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 For inquiries, feature requests, or support:
 
 * **Email**: [gagah.p.412@gmail.com](mailto:gagah.p.412@gmail.com)
-* **Discord**: [Join our server]([https://discord.gg/your-discord-invite](https://discord.gg/ev5G3HbQ))
+* **Discord**: [Join our server](https://discord.gg/ev5G3HbQ)
 
 > *Note: Replace `<YOUR_USERNAME>`, `<YOUR_SUPABASE_URL>`, `<YOUR_SUPABASE_KEY>`, and `<YOUR_JWT_SECRET>` with your actual credentials.*
