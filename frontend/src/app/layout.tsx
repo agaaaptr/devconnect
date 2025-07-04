@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import { AuroraCursor } from '@/hooks/useAnimations';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -16,8 +17,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        {children}
+      <body className={`${inter.className} antialiased`}>
+        {/* Aurora Cursor */}
+        <AuroraCursor />
+        {/* Aurora Background Container */}
+        <div className="fixed inset-0 z-0 pointer-events-none">
+          <div className="aurora-bg"></div>
+        </div>
+        
+        {/* Main Content */}
+        <div className="relative z-10 min-h-screen">
+          {children}
+        </div>
       </body>
     </html>
   );
