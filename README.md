@@ -1,4 +1,4 @@
-**DevConnect** 🚀
+# **DevConnect** 🚀
 
 ***A Social Platform Crafted for Developers***
 
