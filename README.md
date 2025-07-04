@@ -1,94 +1,162 @@
-# DevConnect 🚀
-DevConnect adalah platform media sosial yang dirancang khusus untuk pengembang. Platform ini menyediakan ruang untuk berbagi kode, terhubung dengan sesama pengembang, mengobrol secara real-time, memamerkan proyek, mengelola versi, dan mendapatkan pencapaian.
+# **DevConnect** 🚀
 
-✨ Fitur Utama
+***A Social Platform Crafted for Developers***
 
-Berbagi Kode 📝: Bagikan cuplikan kode atau proyek lengkap dengan komunitas secara mudah.
-Jaringan Pengembang 🤝: Terhubung dengan pengembang lain, ikuti karya mereka, dan berkolaborasi.
-Obrolan Real-Time 💬: Diskusikan ide dan dapatkan umpan balik instan melalui fitur obrolan.
-Pameran Proyek 🎨: Tampilkan proyek Anda dan terima masukan dari komunitas.
-Kontrol Versi 🔄: Kelola dan lacak perubahan proyek langsung di platform.
-Sistem Pencapaian 🏆: Dapatkan lencana dan hadiah atas kontribusi dan aktivitas Anda.
+---
 
+## 📌 Table of Contents
 
-🛠️ Teknologi yang Digunakan
+1. [Overview](#overview)
+2. [Key Features](#key-features)
+3. [Tech Stack](#tech-stack)
+4. [Installation & Setup](#installation--setup)
+5. [Usage](#usage)
+6. [Contributing](#contributing)
+7. [License](#license)
+8. [Contact & Support](#contact--support)
 
-Frontend: Next.js – Framework React untuk rendering sisi server dan pembuatan situs statis.
-Backend: Express.js – Framework aplikasi web Node.js yang minimal dan fleksibel.
-Database: Supabase – Alternatif Firebase open-source dengan kemampuan real-time.
+---
 
+## 🏷️ Overview
 
-📦 Instalasi
-Ikuti langkah-langkah berikut untuk menjalankan DevConnect secara lokal:
+DevConnect is a purpose-built social ecosystem enabling developers to share, collaborate, and showcase their work seamlessly. With real-time interactions, version control integration, and an achievement-driven environment, we empower you to accelerate your professional growth and network with like-minded innovators.
 
-Kloning repository:
-git clone https://github.com/your-username/devconnect.git
-cd devconnect
+---
 
+## 🚀 Key Features
 
-Instal dependensi:
+* **Code Sharing & Collaboration**: Effortlessly publish code snippets or full-scale projects; leverage inline comments and collaborative threads.
+* **Developer Networking**: Follow peers, endorse skills, and foster meaningful connections.
+* **Real-Time Chat**: Engage in instantaneous discussions via integrated chat channels and direct messages.
+* **Project Showcase**: Highlight your portfolios, receive community feedback, and benchmark progress.
+* **Version Control Management**: Native Git workflows for pull requests, branching, and merge tracking.
+* **Achievement System**: Gamified badges and rewards to recognize contributions and milestones.
 
-Untuk frontend:cd frontend
-npm install
+---
 
+## 🛠️ Tech Stack
 
-Untuk backend:cd ../backend
-npm install
+| Layer          | Technology                               |
+| -------------- | ---------------------------------------- |
+| Frontend       | Next.js (React SSR & Static Generation)  |
+| Backend        | Express.js (Node.js Framework)           |
+| Database       | Supabase (PostgreSQL, Realtime APIs)     |
+| Authentication | JWT / OAuth Providers                    |
+| Deployment     | Vercel (Frontend & Backend - Serverless) |
 
+---
 
+## 🔧 Installation & Setup
 
+> Follow these steps to initialize DevConnect locally:
 
-Atur variabel lingkungan:
+1. **Clone Repository**
 
-Buat file .env di direktori backend dengan isi:SUPABASE_URL=your_supabase_url
-SUPABASE_KEY=your_supabase_key
+```bash
+$ git clone https://github.com/<YOUR_USERNAME>/devconnect.git
+$ cd devconnect
+```
 
+2. **Install Dependencies**
 
+* Frontend:
 
+  ```bash
+  $ cd frontend
+  $ npm install
+  ```
+* Backend:
 
-Jalankan aplikasi:
+  ```bash
+  $ cd ../backend
+  $ npm install
+  ```
 
-Jalankan server backend:cd backend
-npm start
+3. **Configure Environment Variables**
 
+Create a `.env` file in the `backend` directory with the following entries:
 
-Jalankan server pengembangan frontend:cd ../frontend
-npm run dev
+```dotenv
+SUPABASE_URL=<YOUR_SUPABASE_URL>
+SUPABASE_KEY=<YOUR_SUPABASE_KEY>
+JWT_SECRET=<YOUR_JWT_SECRET>
+```
 
+4. **Start Development Servers**
 
+* **Backend** (Locally for development purposes)
 
+  ```bash
+  $ cd backend
+  $ npm start
+  ```
+* **Frontend**
 
+  ```bash
+  $ cd ../frontend
+  $ npm run dev
+  ```
 
+Once both servers are running, open your browser at `http://localhost:3000` to access DevConnect.
 
-🚀 Penggunaan
+---
 
-Daftar / Masuk 🔑: Buat akun atau masuk untuk mengakses platform.
-Profil 👤: Sesuaikan profil Anda, tambahkan bio, dan tautkan media sosial.
-Bagikan Kode 📤: Gunakan editor kode bawaan untuk berbagi cuplikan atau tautkan ke repository.
-Jaringan 🌐: Ikuti pengembang, gabung ke grup, dan ikut dalam diskusi.
-Obrolan 💬: Berkomunikasi secara real-time menggunakan fitur obrolan.
-Proyek 🖼️: Unggah dan pamerkan proyek Anda, serta jelajahi karya orang lain.
-Kontrol Versi 📜: Kelola versi proyek langsung di platform.
-Pencapaian ⭐: Dapatkan lencana untuk menyelesaikan tugas dan berkontribusi.
+## 🎯 Usage
 
+1. **Sign Up / Log In**
 
-🤝 Kontribusi
-Kami menyambut kontribusi! Untuk memulai:
+   * Register a new account or authenticate via OAuth.
+2. **Complete Your Profile**
 
-Fork repository ini.
-Buat branch baru untuk fitur atau perbaikan bug Anda.
-Lakukan perubahan dan commit dengan pesan yang deskriptif.
-Push perubahan Anda ke fork Anda.
-Ajukan pull request ke repository utama.
+   * Add a bio, tech stack, portfolio links, and social handles.
+3. **Share & Collaborate**
 
-Pastikan kode Anda sesuai dengan standar proyek dan menyertakan tes yang sesuai.
+   * Post code snippets with syntax highlighting; initiate pull requests for peer reviews.
+4. **Engage in Discussions**
 
-📜 Lisensi
-Proyek ini dilisensikan di bawah Lisensi MIT. Lihat file LICENSE untuk detailnya.
+   * Join channels, send direct messages, and leverage threads for organized dialogues.
+5. **Showcase Projects**
 
-📬 Kontak
-Untuk pertanyaan atau dukungan, hubungi kami di gagah.p.412@gmail.com atau bergabung dengan server Discord kami.
+   * Upload portfolios, annotate your process, and gather constructive feedback.
+6. **Track Achievements**
 
-Catatan:  
+   * Earn badges for milestones like first PR merged, 100 code shares, or community moderator status.
 
-Ganti your-username di perintah kloning dengan nama pengguna GitHub Anda yang sebenarnya.
+---
+
+## 🤝 Contributing
+
+We welcome and value your contributions! To maintain high standards, please adhere to the following workflow:
+
+1. **Fork** the repository to your GitHub account.
+2. **Create a feature branch**:
+
+   ```bash
+   $ git checkout -b feat/your-feature-name
+   ```
+3. **Commit changes** with clear, descriptive messages.
+4. **Push** your branch:
+
+   ```bash
+   $ git push origin feat/your-feature-name
+   ```
+5. **Open a Pull Request** against the `develop` branch of the main repository.
+
+**Coding Standards**: ESLint (Airbnb config), Prettier formatting, and meaningful inline documentation are required. Ensure all unit and integration tests pass before submission.
+
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for full terms.
+
+---
+
+## 📬 Contact & Support
+
+For inquiries, feature requests, or support:
+
+* **Email**: [gagah.p.412@gmail.com](mailto:gagah.p.412@gmail.com)
+* **Discord**: [Join our server](https://discord.gg/ev5G3HbQ)
+
+> *Note: Replace `<YOUR_USERNAME>`, `<YOUR_SUPABASE_URL>`, `<YOUR_SUPABASE_KEY>`, and `<YOUR_JWT_SECRET>` with your actual credentials.*
