@@ -310,7 +310,7 @@ body {
 
 /* Performance Optimizations */
 @media (prefers-reduced-motion: reduce) {
-  .aurora-bg::before,
+  /* .aurora-bg::before,
   .wave-bg::before,
   .wave-bg::after,
   .gradient-text,
@@ -323,7 +323,7 @@ body {
   .btn-primary:hover,
   .btn-outline:hover {
     transform: none;
-  }
+  } */
 }
 
 /* Intersection Observer Optimization */
