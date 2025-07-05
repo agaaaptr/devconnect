@@ -38,6 +38,12 @@ module.exports = {
         'float': 'float 6s ease-in-out infinite',
       },
       keyframes: {
+        from: {
+            'from-yellow-500': 'from-cyan-500',
+            'to-orange-500': 'to-blue-500',
+            'from-red-500': 'from-pink-500',
+            'to-rose-500': 'to-purple-500'
+          },
         gradient: {
           '0%, 100%': {
             'background-size': '200% 200%',

@@ -2,12 +2,10 @@
 
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
-import { Code, Users, MessageCircle, Sun, Moon, Menu, X } from 'lucide-react';
-import { useTheme } from '@/hooks/useTheme';
+import { Code, Users, MessageCircle, Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 export default function Header() {
-  const { theme, toggleTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -34,7 +32,6 @@ export default function Header() {
             <Link href="/" className="flex items-center space-x-2 group">
               <div className="relative">
                 <Code className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
-                {/* <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full animate-pulse"></div> */}
               </div>
               <span className="text-xl font-bold gradient-text">
                 DevConnect
@@ -66,19 +63,7 @@ export default function Header() {
             </Link>
           </nav>
 
-          <div className="flex items-center space-x-4">
-            {/* <button
-              onClick={toggleTheme}
-              className="p-2 rounded-lg hover:bg-muted transition-all duration-200 hover:scale-110 group"
-              aria-label="Toggle theme"
-            >
-              {theme === 'light' ? (
-                <Moon className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
-              ) : (
-                <Sun className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
-              )}
-            </button> */}
-            
+          <div className="flex items-center space-x-4">          
             <div className="hidden md:flex items-center space-x-3">
               <Button variant="outline" size="sm" className="btn-outline">
                 Sign In

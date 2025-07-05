@@ -6,29 +6,10 @@ import { useState, useEffect, useRef } from 'react';
 
 export default function Hero() {
   const [mounted, setMounted] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const heroRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (heroRef.current) {
-        const rect = heroRef.current.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-        setMousePosition({ x, y });
-        
-        // Update CSS custom properties for aurora effect
-        document.documentElement.style.setProperty('--x', `${x}%`);
-        document.documentElement.style.setProperty('--y', `${y}%`);
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   if (!mounted) return null;
@@ -38,30 +19,30 @@ export default function Hero() {
       ref={heroRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background"
     >
-      {/* Additional Background Elements */}
+      {/* Simplified Wave Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div 
-          className="absolute w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse"
+          className="absolute w-96 h-96 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"
           style={{
             top: '10%',
             right: '10%',
-            animation: 'float 6s ease-in-out infinite'
+            animation: 'float 8s ease-in-out infinite'
           }}
         ></div>
         <div 
-          className="absolute w-80 h-80 bg-purple-500/20 rounded-full blur-3xl animate-pulse"
+          className="absolute w-80 h-80 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-full blur-3xl"
           style={{
             bottom: '20%',
             left: '5%',
-            animation: 'float 8s ease-in-out infinite reverse'
+            animation: 'float 12s ease-in-out infinite reverse'
           }}
         ></div>
         <div 
-          className="absolute w-64 h-64 bg-pink-500/20 rounded-full blur-2xl animate-pulse"
+          className="absolute w-64 h-64 bg-gradient-to-br from-pink-500/10 to-blue-500/10 rounded-full blur-2xl"
           style={{
             top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
+            left: '80%',
+            transform: 'translateY(-50%)',
             animation: 'float 10s ease-in-out infinite'
           }}
         ></div>
@@ -105,7 +86,7 @@ export default function Hero() {
               className="btn-outline inline-flex items-center group"
             >
               <Play className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
-              Watch Demo
+              Explore Platform
             </Button>
           </div>
 

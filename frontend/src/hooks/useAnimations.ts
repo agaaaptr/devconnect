@@ -1,66 +1,77 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
-export const AuroraCursor = () => {
+export const useAuroraCursor = () => {
+    const lastUpdate = useRef(0);
+    const animationFrameId = useRef<number>();
+
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
-            const x = (e.clientX / window.innerWidth) * 100;
-            const y = (e.clientY / window.innerHeight) * 100;
+            const now = Date.now();
 
-            // Update CSS custom properties for aurora effect
-            document.documentElement.style.setProperty('--x', `${x}%`);
-            document.documentElement.style.setProperty('--y', `${y}%`);
+            // Throttle to 16ms (60fps)
+            if (now - lastUpdate.current < 16) return;
+
+            lastUpdate.current = now;
+
+            if (animationFrameId.current) {
+                cancelAnimationFrame(animationFrameId.current);
+            }
+
+            animationFrameId.current = requestAnimationFrame(() => {
+                const x = (e.clientX / window.innerWidth) * 100;
+                const y = (e.clientY / window.innerHeight) * 100;
+
+                document.documentElement.style.setProperty('--x', `${x}%`);
+                document.documentElement.style.setProperty('--y', `${y}%`);
+            });
         };
 
-        // Throttle mousemove events for better performance
-        let ticking = false;
-        const throttledMouseMove = (e: MouseEvent) => {
-            if (!ticking) {
-                requestAnimationFrame(() => {
-                    handleMouseMove(e);
-                    ticking = false;
-                });
-                ticking = true;
+        const handleVisibilityChange = () => {
+            if (document.hidden && animationFrameId.current) {
+                cancelAnimationFrame(animationFrameId.current);
             }
         };
 
-        window.addEventListener('mousemove', throttledMouseMove);
+        document.addEventListener('mousemove', handleMouseMove, { passive: true });
+        document.addEventListener('visibilitychange', handleVisibilityChange);
 
         return () => {
-            window.removeEventListener('mousemove', throttledMouseMove);
+            document.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+            if (animationFrameId.current) {
+                cancelAnimationFrame(animationFrameId.current);
+            }
         };
     }, []);
-
-    return null; // This component doesn't render anything
 };
 
-// Optional: Export as a hook for use in other components
-export const useAuroraCursor = () => {
+// Optimized Scroll Reveal Hook
+export const useScrollReveal = (threshold = 0.1) => {
+    const elementRef = useRef<HTMLElement>(null);
+    const isVisible = useRef(false);
+
     useEffect(() => {
-        const handleMouseMove = (e: MouseEvent) => {
-            const x = (e.clientX / window.innerWidth) * 100;
-            const y = (e.clientY / window.innerHeight) * 100;
-
-            document.documentElement.style.setProperty('--x', `${x}%`);
-            document.documentElement.style.setProperty('--y', `${y}%`);
-        };
-
-        let ticking = false;
-        const throttledMouseMove = (e: MouseEvent) => {
-            if (!ticking) {
-                requestAnimationFrame(() => {
-                    handleMouseMove(e);
-                    ticking = false;
-                });
-                ticking = true;
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting && !isVisible.current) {
+                    entry.target.classList.add('revealed');
+                    isVisible.current = true;
+                }
+            },
+            {
+                threshold,
+                rootMargin: '50px 0px'
             }
-        };
+        );
 
-        window.addEventListener('mousemove', throttledMouseMove);
+        if (elementRef.current) {
+            observer.observe(elementRef.current);
+        }
 
-        return () => {
-            window.removeEventListener('mousemove', throttledMouseMove);
-        };
-    }, []);
+        return () => observer.disconnect();
+    }, [threshold]);
+
+    return elementRef;
 };
