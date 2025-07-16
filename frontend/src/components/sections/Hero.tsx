@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/Button';
 import { ArrowRight, Github, Twitter, Linkedin, Sparkles, Zap, Play } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 
-export default function Hero() {
+export default function Hero({ onSignUpClick }: { onSignUpClick: () => void; }) {
   const [mounted, setMounted] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
 
@@ -75,6 +75,7 @@ export default function Hero() {
             <Button 
               size="lg" 
               className="btn-primary inline-flex items-center group shadow-lg"
+              onClick={onSignUpClick}
             >
               <Zap className="mr-2 h-5 w-5 group-hover:animate-pulse" />
               Join DevConnect

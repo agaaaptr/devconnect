@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/Button';
 import { Code, Users, MessageCircle, Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
-export default function Header() {
+export default function Header({ onSignInClick, onSignUpClick, onSignOut, isLoggedIn, isShowingAuthForms, onHeaderClick }: { onSignInClick: () => void; onSignUpClick: () => void; onSignOut: () => void; isLoggedIn: boolean; isShowingAuthForms: boolean; onHeaderClick: () => void; }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -29,7 +29,11 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-2 group">
+            <Link 
+              href="/"
+              className="flex items-center space-x-2 group"
+              onClick={isLoggedIn ? undefined : onHeaderClick} // Only call onHeaderClick if not logged in
+            >
               <div className="relative">
                 <Code className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
               </div>
@@ -41,20 +45,6 @@ export default function Header() {
           
           <nav className="hidden md:flex items-center space-x-8">
             <Link 
-              href="/developers" 
-              className="text-muted-foreground hover:text-primary transition-all duration-200 hover:scale-105 relative group"
-            >
-              Developers
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-            </Link>
-            <Link 
-              href="/projects" 
-              className="text-muted-foreground hover:text-primary transition-all duration-200 hover:scale-105 relative group"
-            >
-              Projects
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-            </Link>
-            <Link 
               href="/community" 
               className="text-muted-foreground hover:text-primary transition-all duration-200 hover:scale-105 relative group"
             >
@@ -65,12 +55,20 @@ export default function Header() {
 
           <div className="flex items-center space-x-4">          
             <div className="hidden md:flex items-center space-x-3">
-              <Button variant="outline" size="sm" className="btn-outline">
-                Sign In
-              </Button>
-              <Button size="sm" className="btn-primary">
-                Get Started
-              </Button>
+              {!isLoggedIn && !isShowingAuthForms ? (
+                <>
+                  <Button variant="outline" size="sm" className="btn-outline" onClick={onSignInClick}>
+                    Sign In
+                  </Button>
+                  <Button size="sm" className="btn-primary" onClick={onSignUpClick}>
+                    Get Started
+                  </Button>
+                </>
+              ) : isLoggedIn ? (
+                <Button size="sm" className="btn-primary" onClick={onSignOut}>
+                  Sign Out
+                </Button>
+              ) : null}
             </div>
 
             <button
@@ -91,20 +89,6 @@ export default function Header() {
           <div className="md:hidden border-t border-border py-4 animate-fade-in">
             <nav className="flex flex-col space-y-4">
               <Link 
-                href="/developers" 
-                className="text-muted-foreground hover:text-primary transition-colors py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Developers
-              </Link>
-              <Link 
-                href="/projects" 
-                className="text-muted-foreground hover:text-primary transition-colors py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Projects
-              </Link>
-              <Link 
                 href="/community" 
                 className="text-muted-foreground hover:text-primary transition-colors py-2"
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -112,12 +96,20 @@ export default function Header() {
                 Community
               </Link>
               <div className="flex flex-col space-y-2 pt-4">
-                <Button variant="outline" size="sm" className="btn-outline">
-                  Sign In
-                </Button>
-                <Button size="sm" className="btn-primary">
-                  Get Started
-                </Button>
+                {!isLoggedIn && !isShowingAuthForms ? (
+                  <>
+                    <Button variant="outline" size="sm" className="btn-outline" onClick={() => { onSignInClick(); setIsMobileMenuOpen(false); }}>
+                      Sign In
+                    </Button>
+                    <Button size="sm" className="btn-primary" onClick={() => { onSignUpClick(); setIsMobileMenuOpen(false); }}>
+                      Get Started
+                    </Button>
+                  </>
+                ) : isLoggedIn ? (
+                  <Button size="sm" className="btn-primary" onClick={() => { onSignOut(); setIsMobileMenuOpen(false); }}>
+                    Sign Out
+                  </Button>
+                ) : null}
               </div>
             </nav>
           </div>

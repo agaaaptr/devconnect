@@ -1,5 +1,9 @@
+import dotenv from 'dotenv';
+dotenv.config({ path: './.env.production' });
+
 import app from './app';
 import { createServer } from 'http';
+import { createClient } from '@supabase/supabase-js';
 
 // Smart port detection function
 const findAvailablePort = async (preferredPort: number): Promise<number> => {
@@ -20,6 +24,10 @@ const findAvailablePort = async (preferredPort: number): Promise<number> => {
 
 const startServer = async () => {
     const preferredPort = parseInt(process.env.PORT || '5000');
+
+    // Initialize Supabase client here, after dotenv.config() has run
+    const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!);
+    app.set('supabase', supabase);
 
     try {
         const availablePort = await findAvailablePort(preferredPort);

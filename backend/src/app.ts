@@ -1,15 +1,45 @@
-import express from 'express';
+
+import express, { Request, Response, NextFunction } from 'express';
+import { User } from '@supabase/supabase-js';
+
+declare global {
+    namespace Express {
+        interface Request {
+            user?: User;
+        }
+    }
+}
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
-import dotenv from 'dotenv';
+
 
 // Import routes
 import userRoutes from './routes/user.routes';
-
-dotenv.config();
+import authRoutes from './routes/auth.routes';
 
 const app = express();
+
+// Supabase client initialization
+
+
+// Authentication Middleware
+const authenticateToken = async (req: Request, res: Response, next: NextFunction) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    const supabase = req.app.get('supabase');
+
+    if (token == null) return res.sendStatus(401); // No token
+
+    const { data: { user }, error } = await supabase.auth.getUser(token);
+
+    if (error || !user) {
+        return res.sendStatus(403); // Invalid token
+    }
+
+    req.user = user; // Attach user to request
+    next();
+};
 
 // Middleware
 app.use(helmet());
@@ -33,7 +63,8 @@ app.get('/api/health', (req, res) => {
 });
 
 // Routes
-app.use('/api/users', userRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/users', authenticateToken, userRoutes);
 
 // 404 handler
 app.use('*', (req, res) => {
