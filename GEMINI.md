@@ -51,84 +51,57 @@ To get the project running locally, follow these steps:
 
 ---
 
-## Project Learnings and Setup Details (July 16, 2025)
+## Project Learnings and Setup Details (July 17, 2025) - Continuation
 
-This section summarizes the key changes and configurations made during the session to integrate Supabase, implement authentication, and refine the UI/UX.
+This section summarizes the troubleshooting efforts and current state of the project, acknowledging unresolved issues.
 
-### 1. Supabase Integration
+#### 1. Production Login/Signup Redirect to Localhost Issue
 
-*   **Prisma Schema Modification:**
-    *   The `id` field in `backend/prisma/schema.prisma`'s `User` model was changed from `cuid()` to `@db.Uuid` to align with Supabase's UUID-based authentication system.
-    *   The `updatedAt` field in `backend/prisma/schema.prisma`'s `User` model was updated to include `@default(now())` to prevent database errors during user creation.
-*   **Supabase Row Level Security (RLS):**
-    *   RLS was enabled on the `public.users` table.
-    *   The following RLS policies were created:
-        *   "Public profiles are viewable by everyone." (SELECT USING (true))
-        *   "Users can insert their own profile." (INSERT WITH CHECK (auth.uid() = id))
-        *   "Users can update their own profile." (UPDATE USING (auth.uid() = id) WITH CHECK (auth.uid() = id))
-        *   "Users can delete their own profile." (DELETE USING (auth.uid() = id))
-*   **Supabase Trigger for New User Creation:**
-    *   A PostgreSQL function `handle_new_user()` and a trigger `on_auth_user_created` were created in the Supabase database. This trigger automatically inserts a new record into `public.users` when a user signs up via Supabase Auth, using `coalesce` for `username` and `name` to handle cases where OAuth providers might not directly provide these fields.
-*   **Supabase Client Setup:**
-    *   **Backend:** The `@supabase/supabase-js` library was installed. The Supabase client is now initialized in `backend/src/server.ts` (after `dotenv.config()` runs) and set on the Express `app` object.
-    *   **Frontend:** The `@supabase/supabase-js` library was installed. A utility file `frontend/src/lib/supabaseClient.ts` was created to initialize and export the Supabase client.
-*   **Environment Variables:**
-    *   `SUPABASE_URL` and `SUPABASE_ANON_KEY` were added to `backend/.env.production`.
-    *   `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` were added to `frontend/.env.production` and `frontend/.env.local`.
+*   **Initial Problem:** Users were redirected to `localhost` after login/signup in production.
+*   **Analysis:**
+    *   Incorrect `Site URL` in Supabase authentication settings.
+    *   Incorrect CORS `origin` in `backend/src/app.ts` (placeholder `https://your-frontend-domain.vercel.app`).
+    *   Incorrect `NEXT_PUBLIC_API_URL` in `frontend/.env.production` and Vercel environment variables for the frontend.
+*   **Resolution Attempts & Outcome:**
+    *   Updated Supabase `Site URL` and `Additional Redirect URLs` to `https://devconnect-frontend-coral.vercel.app`. (Manual action by user)
+    *   Corrected CORS `origin` in `backend/src/app.ts` to `https://devconnect-frontend-coral.vercel.app`.
+    *   Removed Next.js `rewrites` from `frontend/next.config.js` to allow direct API calls.
+    *   Corrected `NEXT_PUBLIC_API_URL` in `frontend/.env.production` to `https://devconnect-backend-chi.vercel.app/api`.
+    *   **Crucial Unresolved Issue:** Despite these changes, `cURL` logs still showed requests going to `https://devconnect-backend.vercel.app` (without `-chi`), indicating a persistent misconfiguration of `NEXT_PUBLIC_API_URL` in the Vercel environment variables for the frontend project, overriding the `.env.production` file. This was identified as the primary cause of the CORS issues in production.
+    *   **Current State:** The production CORS issue is likely due to the frontend still using the wrong backend URL, which needs to be corrected directly in the Vercel Dashboard for the frontend project.
 
-### 2. Authentication Features
+#### 2. Backend Routing on Vercel (404 for API calls)
 
-*   **Backend API Endpoints:**
-    *   `backend/src/controllers/auth.controller.ts` was created to handle `signup`, `login`, and `logout` logic using the Supabase client.
-    *   `backend/src/routes/auth.routes.ts` defines the API routes (`/api/auth/signup`, `/api/auth/login`, `/api/auth/logout`).
-    *   The `createUser` logic was moved from `backend/src/controllers/user.controller.ts` to `auth.controller.ts`.
-    *   An `authenticateToken` middleware was added in `backend/src/app.ts` to protect routes requiring authentication.
-*   **Frontend Authentication Forms:**
-    *   `frontend/src/components/auth/SignInForm.tsx` and `frontend/src/components/auth/SignUpForm.tsx` were created.
-    *   These forms integrate with the backend API for email/password authentication.
-    *   Google and GitHub OAuth sign-in/sign-up options were added, utilizing `supabase.auth.signInWithOAuth`.
-    *   **Form Validation:** Implemented client-side validation for email format, password length (min 8 chars), and required fields (name, username) with real-time error messages.
-    *   **Integrated Forms:** `SignInForm` and `SignUpForm` are now integrated into a single view in `page.tsx`, allowing users to switch between them via "Sign In" and "Sign Up" links.
-*   **Session Management:**
-    *   The frontend (`frontend/src/app/page.tsx`) now listens for Supabase authentication state changes (`onAuthStateChange`) to manage the `isLoggedIn` state and store/remove session tokens in `localStorage`.
-    *   An `isLoading` state was introduced in `page.tsx` to prevent UI flicker during session checks, ensuring a smoother transition to the correct page (dashboard or landing).
+*   **Initial Problem:** Backend API calls (`/api/auth/signup`) resulted in `404 Not Found` in production, even when the request reached the Express app.
+*   **Analysis:** Vercel's routing for Express applications, especially for serverless functions, can be tricky. The `vercel.json` `routes` configuration might have been too specific or conflicting with Vercel's internal mapping.
+*   **Resolution Attempts & Outcome:**
+    *   Simplified `backend/vercel.json` to point directly to `src/server.ts` and removed explicit `routes` property.
+    *   Re-added `routes` property to `backend/vercel.json` to explicitly route all traffic to `src/server.ts` for robustness.
+    *   **Current State:** This issue is believed to be resolved, assuming the correct backend URL is being targeted by the frontend.
 
-### 3. UI/UX Improvements
+#### 3. Local Development `400 Bad Request` on Signup
 
-*   **Form Styling:**
-    *   Input fields in `SignInForm.tsx` and `SignUpForm.tsx` were updated with `bg-input`, `text-foreground`, `border-border`, `focus:ring-primary`, and `focus:border-primary` classes for better visibility and theme consistency.
-    *   A `form-container-glow` class was added to `frontend/src/app/globals.css` and applied to the form container for a glowing shadow effect on focus.
-    *   An `input-focus-glow` class was added to `frontend/src/app/globals.css` and applied to input fields for a smooth focus effect.
-*   **Form Transition:**
-    *   The form transition logic in `frontend/src/app/page.tsx` was simplified. Instead of complex `absolute` positioning, forms are now conditionally rendered with `opacity` and `transform` animations, ensuring the container maintains its height and forms slide in/out smoothly without disappearing or causing blank spaces.
-*   **Google Logo:**
-    *   The `frontend/public/google.svg` file was updated to a simple, white "G" logo.
-*   **Mobile Interface:**
-    *   Responsive padding (`p-4 sm:p-6 md:p-8`) was added to the main content `div` in `frontend/src/components/sections/DashboardContent.tsx` to ensure proper spacing on mobile devices.
-*   **Header Navigation:**
-    *   Header navigation links (`Developers`, `Projects`) were removed, leaving only `Community`.
-    *   The "Join DevConnect" button in `Hero.tsx` now directly triggers the sign-up form.
-    *   The Header's logo/name (`DevConnect` and Code icon) now dynamically links to the root (`/`) for both logged-in (which renders Dashboard) and logged-out states (which renders Landing/Auth forms).
-    *   "Sign In" and "Get Started" buttons in the Header are hidden when authentication forms are active.
-*   **Loading Page:**
-    *   The loading page in `page.tsx` was redesigned to feature only a central animated rocket icon with a circular loading indicator, removing the code icon and text. The Header is hidden during loading.
-*   **Toast Notifications:**
-    *   A new `Toast.tsx` component was created for smooth, responsive, top-right notifications.
-    *   Integrated into `page.tsx` to display success/error messages for authentication actions (e.g., successful logout).
-    *   Toast background colors were adjusted to `bg-card` with `text-primary` (for success icon) and `text-red-500` (for error icon) to better match the overall dark theme.
+*   **Initial Problem:** Local signup attempts resulted in `400 Bad Request` with "Email, password, username, and name are required." message, despite `req.body` appearing correct in logs.
+*   **Analysis:** This was a complex issue. Initial hypothesis was related to `req.body` parsing or boolean evaluation.
+*   **Resolution Attempts & Outcome:**
+    *   Added extensive logging to `backend/src/controllers/auth.controller.ts` to inspect `req.body` and individual variable types/values. Logs confirmed data was present and correct.
+    *   Temporarily bypassed validation in `auth.controller.ts` to isolate the issue.
+    *   **New Error Encountered:** `AuthApiError: Database error saving new user` with `status: 500` and `code: 'unexpected_failure'` from Supabase, indicating a problem with Supabase's interaction with the database from the local environment. This was hypothesized to be related to Supabase triggers or RLS policies in the production database when accessed from local.
+    *   **Current State:** This local issue remains unresolved, but the focus has shifted to production.
 
-### 4. Troubleshooting & Key Learnings
+#### 4. Authentication Flow & Redirection Issues
 
-*   **Environment Variable Loading:** Ensured `dotenv.config()` is called at the very entry point (`backend/src/server.ts`) and explicitly loads `.env.production`. Supabase client initialization was moved inside `startServer` to guarantee environment variables are loaded.
-*   **Next.js Client vs. Server Components:** Confirmed `frontend/src/app/page.tsx` is marked with `'use client'` due to its use of `useState` and `useEffect`.
-*   **Form Animation Techniques:** Learned that `position: absolute` can cause container collapse and that `max-h-0` with `overflow-hidden` can lead to forms disappearing. A more robust approach involves rendering both forms and using `opacity` and `transform` for animation, while managing container height and `z-index` for layering.
-*   **SVG Icon Accuracy:** Emphasized the importance of using precise SVG code for brand logos.
-*   **CORS Issues (Development Environment)**:
-    *   Encountered `JSON.parse: unexpected end of data` due to empty responses from backend, resolved by ensuring valid JSON responses.
-    *   Repeated `403 Forbidden` errors during local development, primarily due to `next.config.js` `rewrites` proxying behavior and `helmet`/`cors` middleware interaction.
-    *   Attempted various `cors` configurations (regex, function-based, permissive `cors()`) and middleware reordering (`cors()` before `helmet()`).
-    *   **Key Learning**: For local development, direct communication from frontend to backend (bypassing Next.js proxy for API calls) is often more reliable. However, due to persistent issues, the CORS configuration in `backend/src/app.ts` was reverted to its production-safe state, acknowledging that email/password login might remain problematic in local development, while OAuth (Google/GitHub) should still function. This trade-off allows continued development.
-*   **React Hook Import/Export Errors**: Resolved `Unexpected eof` and `useState is not defined` errors in `page.tsx` caused by incorrect placement and duplication of `import` statements and component declarations.
-*   **UI Flicker on Login**: Addressed the brief display of the landing page before redirecting to the dashboard by introducing an `isLoading` state, ensuring content is only rendered after authentication status is confirmed.
+*   **Desired Flow:**
+    *   **Sign In:** Direct to Dashboard with "Login successful" toast.
+    *   **Sign Up:** Email confirmation, then redirect to Dashboard with "Sign up successful" toast.
+*   **Initial Problem:**
+    *   Sign in/Sign up redirected to landing page.
+    *   Sign up directly logged in user without email confirmation.
+*   **Analysis:**
+    *   `SignUpForm.tsx` was directly logging in users and calling `onSignUpSuccess()` prematurely.
+    *   `page.tsx`'s `isLoggedIn` state and `useEffect` logic needed refinement for smoother transitions and proper handling of Supabase auth state changes.
+*   **Resolution Attempts & Outcome:**
+    *   Modified `SignUpForm.tsx` to only display a success message after email/password signup, and not directly log in the user or call `onSignUpSuccess()`. This correctly implements the email confirmation flow.
+    *   Modified `page.tsx`'s `useEffect` for `onAuthStateChange` to more robustly handle `isLoading` and `isLoggedIn` states, aiming for direct redirection to Dashboard.
+    *   **Current State:** The email confirmation flow for signup is now correctly implemented. The general redirection to Dashboard after successful authentication (login or post-email-confirmation) is the remaining challenge, likely tied to the `page.tsx` state management and Supabase's `onAuthStateChange` listener.
 
-This comprehensive update should provide a clear checkpoint of the project's current state and the rationale behind the changes.
