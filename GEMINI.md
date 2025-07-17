@@ -88,7 +88,7 @@ This section summarizes the key changes and configurations made during the sessi
     *   These forms integrate with the backend API for email/password authentication.
     *   Google and GitHub OAuth sign-in/sign-up options were added, utilizing `supabase.auth.signInWithOAuth`.
     *   **Form Validation:** Implemented client-side validation for email format, password length (min 8 chars), and required fields (name, username) with real-time error messages.
-    *   **Integrated Forms:** `SignInForm` and `SignUpForm` are now integrated into a single view in `page.tsx`, allowing users to switch between them via "Sign In!" and "Sign Up!" links.
+    *   **Integrated Forms:** `SignInForm` and `SignUpForm` are now integrated into a single view in `page.tsx`, allowing users to switch between them via "Sign In" and "Sign Up" links.
 *   **Session Management:**
     *   The frontend (`frontend/src/app/page.tsx`) now listens for Supabase authentication state changes (`onAuthStateChange`) to manage the `isLoggedIn` state and store/remove session tokens in `localStorage`.
     *   An `isLoading` state was introduced in `page.tsx` to prevent UI flicker during session checks, ensuring a smoother transition to the correct page (dashboard or landing).

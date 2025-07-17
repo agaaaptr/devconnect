@@ -222,7 +222,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSignUpSuccess, onSwitchForm }
                     onClick={() => onSwitchForm(true)} 
                     className="text-primary hover:underline focus:outline-none focus:underline"
                 >
-                    Sign In!
+                    Sign In
                 </button>
             </p>
         </form>
