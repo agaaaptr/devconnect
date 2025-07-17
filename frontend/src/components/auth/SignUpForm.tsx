@@ -79,7 +79,8 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSignUpSuccess, onSwitchForm }
         setLoading(true);
 
         try {
-            const response = await fetch('/api/auth/signup', {
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+            const response = await fetch(`${apiUrl}/auth/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

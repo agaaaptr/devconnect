@@ -54,7 +54,8 @@ const SignInForm: React.FC<SignInFormProps> = ({ onSignInSuccess, onSwitchForm }
         setLoading(true);
 
         try {
-            const response = await fetch('/api/auth/login', {
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+            const response = await fetch(`${apiUrl}/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
