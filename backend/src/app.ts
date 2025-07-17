@@ -44,8 +44,13 @@ const authenticateToken = async (req: Request, res: Response, next: NextFunction
 // Middleware
 // Apply CORS before Helmet to ensure headers are set correctly before security policies are applied.
 // This can help prevent issues with proxies in development environments.
-app.use(cors());
-app.use(helmet({ contentSecurityPolicy: false }));
+app.use(cors({
+    origin: process.env.NODE_ENV === 'production'
+        ? 'https://devconnect-frontend-coral.vercel.app'
+        : 'http://localhost:3000',
+    credentials: true
+}));
+app.use(helmet());
 app.use(morgan('combined'));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
