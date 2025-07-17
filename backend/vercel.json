@@ -5,5 +5,8 @@
       "src": "src/server.ts",
       "use": "@vercel/node"
     }
-  ]
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
 }
