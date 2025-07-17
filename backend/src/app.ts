@@ -50,7 +50,9 @@ app.use(cors({
         : 'http://localhost:3000',
     credentials: true
 }));
-app.use(helmet());
+app.options('*', cors()); // Handle preflight OPTIONS requests
+// Temporarily disable helmet to rule out interference
+// app.use(helmet());
 app.use(morgan('combined'));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
