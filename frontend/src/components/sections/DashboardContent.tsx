@@ -15,7 +15,7 @@ const DashboardContent: React.FC = () => {
           Welcome to DevConnect!
         </h1>
         <p className="text-xl text-muted-foreground mb-8 animate-fade-in animation-delay-500">
-          You're successfully logged in. This is your personalized dashboard.
+          You&apos;re successfully logged in. This is your personalized dashboard.
         </p>
 
         <div className="bg-muted/50 border border-border p-6 rounded-lg mb-8 animate-fade-in animation-delay-1000">
@@ -24,7 +24,7 @@ const DashboardContent: React.FC = () => {
             Under Development
           </h2>
           <p className="text-lg text-muted-foreground">
-            We're actively building exciting new features to enhance your experience.
+            We&apos;re actively building exciting new features to enhance your experience.
             Stay tuned for updates on project collaboration, community forums, and more!
           </p>
         </div>

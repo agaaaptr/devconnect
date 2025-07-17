@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { supabase } from '@/lib/supabaseClient';
 
 interface SignUpFormProps {
@@ -202,7 +203,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSignUpSuccess, onSwitchForm }
                 className="w-full flex justify-center items-center py-2 px-4 border border-border rounded-md shadow-sm text-sm font-medium text-foreground bg-card hover:bg-card-foreground/10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
                 disabled={loading}
             >
-                <img src="/google.svg" alt="Google" className="h-5 w-5 mr-2" />
+                <Image src="/google.svg" alt="Google" width={20} height={20} className="mr-2" />
                 Sign Up with Google
             </button>
             <button
@@ -211,7 +212,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSignUpSuccess, onSwitchForm }
                 className="w-full flex justify-center items-center py-2 px-4 border border-border rounded-md shadow-sm text-sm font-medium text-foreground bg-card hover:bg-card-foreground/10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
                 disabled={loading}
             >
-                <img src="/github.svg" alt="GitHub" className="h-5 w-5 mr-2" />
+                <Image src="/github.svg" alt="GitHub" width={20} height={20} className="mr-2" />
                 Sign Up with GitHub
             </button>
 
